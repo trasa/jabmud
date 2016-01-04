@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.meancat.jabmud</groupId>
+    <artifactId>jabmud-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>JabberMud Parent</name>
+    <packaging>pom</packaging>
+
+    <properties>
+        <usefully.version>0.0.2-SNAPSHOT</usefully.version>
+
+        <jetty.version>9.2.13.v20150730</jetty.version>
+        <jersey.version>2.16</jersey.version>
+
+        <curator.version>2.7.1</curator.version>
+
+        <aws.elasticache.java.client.version>1.0.61.0</aws.elasticache.java.client.version>
+        <spring.framework.version>4.1.5.RELEASE</spring.framework.version>
+
+        <simple.spring.memcached.version>3.5.0</simple.spring.memcached.version>
+
+        <spring.data.version>1.7.1.RELEASE</spring.data.version>
+        <hibernate.version>4.3.7.Final</hibernate.version>
+        <kryo.version>3.0.3</kryo.version>
+
+        <slf4j.version>1.7.5</slf4j.version>
+        <logback.version>1.1.2</logback.version>
+        <logback-contrib.version>0.1.2</logback-contrib.version>
+        <logback-extensions.version>0.1.2</logback-extensions.version>
+
+        <guava.version>18.0</guava.version>
+        <reflections.version>0.9.8</reflections.version>
+        <mockito.version>1.9.5</mockito.version>
+        <jackson-version>2.4.3</jackson-version>
+
+        <aalto-xml.version>0.9.9</aalto-xml.version>
+        <hawtdispatch.version>1.22</hawtdispatch.version>
+        <junit.version>4.11</junit.version>
+        <args4j.version>2.0.26</args4j.version>
+        <metrics.version>3.1.1</metrics.version>
+        <metrics-influxdb.version>0.7.0</metrics-influxdb.version>
+        <bson4jackson.version>2.3.1</bson4jackson.version>
+        <commons-codec.version>1.6</commons-codec.version>
+        <commons-io.version>2.3</commons-io.version>
+        <ehcache-core.version>2.5.2</ehcache-core.version>
+        <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
+        <jedis.version>2.7.2</jedis.version>
+
+        <amazonaws.version>1.9.27.multiBatch</amazonaws.version>
+
+
+        <msgpack.version>0.6.11</msgpack.version>
+
+        <!-- Maven Plugin Versions -->
+        <build-helper-maven-plugin.version>1.8</build-helper-maven-plugin.version>
+        <appassembler-maven-plugin.version>1.6</appassembler-maven-plugin.version>
+        <versions-maven-plugin.version>2.1</versions-maven-plugin.version>
+        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+        <maven-release-plugin.version>2.4.2</maven-release-plugin.version>
+        <maven-jar-plugin.version>2.4</maven-jar-plugin.version>
+        <maven-dependency-plugin.version>2.8</maven-dependency-plugin.version>
+        <maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
+        <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
+        <maven-deploy-plugin.version>2.8.1</maven-deploy-plugin.version>
+        <izpack-maven-plugin.version>5.0.0-rc1</izpack-maven-plugin.version>
+        <maven-project-info-reports-plugin.version>2.6</maven-project-info-reports-plugin.version>
+        <maven-surefire-plugin.version>2.18</maven-surefire-plugin.version>
+        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
+        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <maven-shade-plugin.version>2.3</maven-shade-plugin.version>
+    </properties>
+
+    <modules>
+        <module>jabmud-component</module>
+        <module>jabmud-shared</module>
+    </modules>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+                <configuration>
+                    <useEditMode>true</useEditMode>
+                </configuration>
+            </plugin>
+            <!-- deploy sources too -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- deploy javadocs too -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven-plugin.version}</version>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <threadCount>10</threadCount>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.meancat.usefully</groupId>
+            <artifactId>util</artifactId>
+            <version>${usefully.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.meancat.usefully</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>${usefully.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-core</artifactId>
+            <version>${metrics.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-servlets</artifactId>
+            <version>${metrics.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-logback</artifactId>
+            <version>${metrics.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.alchim31</groupId>
+            <artifactId>metrics-influxdb</artifactId>
+            <version>${metrics-influxdb.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.framework.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.framework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-instrument</artifactId>
+            <version>${spring.framework.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback.contrib</groupId>
+            <artifactId>logback-json-classic</artifactId>
+            <version>${logback-contrib.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback.contrib</groupId>
+            <artifactId>logback-jackson</artifactId>
+            <version>${logback-contrib.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.logback-extensions</groupId>
+            <artifactId>logback-ext-loggly</artifactId>
+            <version>${logback-extensions.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>${reflections.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javassist</groupId>
+                    <artifactId>javassist</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
+            <version>${curator.version}</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.framework.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.3</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+    </repositories>
+  </project>

@@ -172,6 +172,18 @@
         </dependency>
 
         <dependency>
+            <groupId>org.igniterealtime.whack</groupId>
+            <artifactId>core</artifactId>
+            <version>${whack.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-server</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-servlet</artifactId>
             <version>${jetty.version}</version>

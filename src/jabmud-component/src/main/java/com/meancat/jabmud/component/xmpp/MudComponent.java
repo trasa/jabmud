@@ -2,17 +2,15 @@ package com.meancat.jabmud.component.xmpp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xmpp.component.Component;
-import org.xmpp.component.ComponentException;
-import org.xmpp.component.ComponentManager;
-import org.xmpp.packet.JID;
-import org.xmpp.packet.Packet;
+import org.xmpp.component.AbstractComponent;
+import org.xmpp.packet.Message;
 
 /**
  *
  */
-public class MudComponent implements Component {
+public class MudComponent extends AbstractComponent {
     private static final Logger logger = LoggerFactory.getLogger(MudComponent.class);
+
 
     @Override
     public String getName() {
@@ -24,24 +22,25 @@ public class MudComponent implements Component {
         return "Jabmud Component";
     }
 
-    @Override
-    public void processPacket(Packet packet) {
-        logger.info("processPacket:\n{}", packet.toXML());
-        // TODO!
-    }
-
-    @Override
-    public void initialize(JID jid, ComponentManager componentManager) throws ComponentException {
-        logger.info("Initialize: {}, {}", jid, componentManager);
-    }
 
     @Override
     public void start() {
-        logger.info("MudComponent Start!");
+        logger.info("MudComponent Start! My JID is {} and domain is {}", getJID(), getDomain());
     }
 
     @Override
-    public void shutdown() {
-        logger.info("MudComponent shutdown!");
+    protected void handleMessage(Message received) {
+        logger.info("handleMessage:\n{}", received.toXML());
+        if (received.getType().equals(Message.Type.chat)) {
+            Message response = new Message();
+            response.setFrom(received.getTo());
+            response.setTo(received.getFrom());
+            response.setType(received.getType());
+            response.setThread(received.getThread());
+
+            response.setBody("Hi!");
+            send(response);
+        }
     }
+
 }

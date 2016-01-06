@@ -20,33 +20,23 @@ public class ExternalMudComponent implements ApplicationContextAware {
     private static final Logger logger = LoggerFactory.getLogger(ExternalMudComponent.class);
 
     AnnotationConfigWebApplicationContext applicationContext;
+    ExternalComponentManager manager;
 
     @PostConstruct
-    public void init() {
+    public void init() throws ComponentException {
         start();
     }
 
-    public void start() {
+    public void start() throws ComponentException {
         // TODO args for connection stuff
-        ExternalComponentManager manager = new ExternalComponentManager("localhost", 5275);
+        manager = new ExternalComponentManager("localhost", 5275);
         // secret key
         manager.setSecretKey("jabmud", "secret");
 
         // ?
         manager.setMultipleAllowed("jabmud", true);
 
-        try {
             manager.addComponent("jabmud", new MudComponent());
-            while (applicationContext.isActive()) {
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    logger.error("interrupted", e);
-                }
-            }
-        } catch (ComponentException e) {
-            logger.error("Failed to add component", e);
-        }
     }
 
     @Override

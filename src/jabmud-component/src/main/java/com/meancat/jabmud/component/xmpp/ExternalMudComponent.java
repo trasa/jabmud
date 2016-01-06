@@ -36,7 +36,7 @@ public class ExternalMudComponent implements ApplicationContextAware {
         // ?
         manager.setMultipleAllowed("jabmud", true);
 
-            manager.addComponent("jabmud", new MudComponent());
+        manager.addComponent("jabmud", new MudComponent());
     }
 
     @Override

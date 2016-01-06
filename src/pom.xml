@@ -79,6 +79,7 @@
     <modules>
         <module>jabmud-component</module>
         <module>jabmud-shared</module>
+        <module>client</module>
     </modules>
 
 

@@ -5,6 +5,7 @@ import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 import ch.qos.logback.core.util.StatusPrinter;
+import com.meancat.jabmud.client.ui.MainForm;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
@@ -88,6 +89,12 @@ public class Client {
 
 
         System.out.println("Started Client");
+
+
+
+
+        MainForm.show(applicationContext);
+
 
         // wait for app to exit
         while (applicationContext.isActive()) {

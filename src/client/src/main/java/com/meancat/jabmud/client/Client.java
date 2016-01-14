@@ -6,6 +6,7 @@ import ch.qos.logback.classic.joran.JoranConfigurator;
 import ch.qos.logback.core.joran.spi.JoranException;
 import ch.qos.logback.core.util.StatusPrinter;
 import com.meancat.jabmud.client.ui.MainForm;
+import com.meancat.jabmud.client.xmpp.Connection;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
@@ -95,6 +96,8 @@ public class Client {
 
         MainForm.show(applicationContext);
 
+        Connection c = applicationContext.getBean(Connection.class);
+        c.connect();
 
         // wait for app to exit
         while (applicationContext.isActive()) {

@@ -14,6 +14,7 @@
         <usefully.version>0.0.2-SNAPSHOT</usefully.version>
 
         <whack.version>2.0.0</whack.version>
+        <smack.version>4.1.5</smack.version>
 
         <jetty.version>9.2.13.v20150730</jetty.version>
         <jersey.version>2.16</jersey.version>

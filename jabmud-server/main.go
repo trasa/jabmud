@@ -5,16 +5,15 @@ import (
 	"log"
 )
 
-func main() {
-	log.Printf("jabmud server started\n")
-	log.Print("neat now with autocomplete working\n")
+type Command struct {
+	cmdName string
+}
 
-	jid, err := xmpp.ParseJID("jabmud.localhost")
-	log.Printf("xmpp parsing: %v\n", err)
-	stream, err := xmpp.NewStream("localhost:5275", nil)
-	log.Printf("created stream: %v\n", err)
-	X, err := xmpp.NewComponentXMPP(stream, jid, "secret")
-	log.Printf("created component: %v\n", X)
+func main() {
+	jid, _ := xmpp.ParseJID("jabmud.localhost")
+	stream, _ := xmpp.NewStream("localhost:5275", nil)
+	X, _ := xmpp.NewComponentXMPP(stream, jid, "secret")
+	log.Printf("created component JID %v at %v\n", jid, X)
 
 	for i := range X.In {
 		switch v := i.(type) {
@@ -24,6 +23,13 @@ func main() {
 			log.Printf("msg: %s says %s\n", v.From, v.Body)
 			// for fun, send a response
 			X.Out <- xmpp.Message{Body: "hi!", To: v.From, From: v.To}
+		case *xmpp.Iq:
+			log.Printf("iq: ", v.Payload)
+			/* doesn't work
+			foo := Command {}
+			v.PayloadDecode(foo)
+			log.Printf("decoded: %v", foo)
+			*/
 		default:
 			log.Printf("%T: %v\n", v, v)
 		}

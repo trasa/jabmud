@@ -3,9 +3,6 @@ package main
 import (
 	"github.com/emgee/go-xmpp/src/xmpp"
 	"log"
-	"net/http"
-//	"github.com/braintree/manners"
-	"fmt"
 )
 
 type Command struct {
@@ -13,15 +10,8 @@ type Command struct {
 }
 
 func main() {
-	go connectHttpServer()
+	go ConnectHttpServer()
 	connectComponent()
-}
-
-func connectHttpServer() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello, this is %s", r.URL.Path[1:])
-	})
-	http.ListenAndServe(":8888", nil)
 }
 
 

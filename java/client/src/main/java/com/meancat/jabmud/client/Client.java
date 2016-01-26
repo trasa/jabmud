@@ -96,6 +96,10 @@ public class Client {
 
         MainForm.show(applicationContext);
 
+        /* this explicitly starts the connection and connects to
+            the server -- at some point maybe we'll want a
+            login form or something here.
+         */
         Connection c = applicationContext.getBean(Connection.class);
         c.connect();
 

@@ -9,6 +9,7 @@ import (
 
 const webBaseDir = "web"
 const port = 8888
+const defaultPage = "index.html"
 
 func ConnectHttpServer() {
 	http.HandleFunc("/", render)
@@ -19,7 +20,11 @@ func ConnectHttpServer() {
 
 func render(w http.ResponseWriter, r *http.Request) {
 	requestedFile := r.URL.Path[1:]
-	log.Printf("render: %s", requestedFile)
+	// TODO switch this to use debug logging
+	log.Printf("render: '%s'", requestedFile)
+	if requestedFile == "" {
+		requestedFile = defaultPage
+	}
 
 	f, err := http.Dir(webBaseDir).Open(requestedFile)
 	defer f.Close()

@@ -3,6 +3,7 @@
         this.use(Sammy.EJS);
 
         this.get('#/', function() {
+            console.log("this.get #/");
             this.render('templates/index.ejs', function(html) {
                 $('#mainContent').html(html);
             });

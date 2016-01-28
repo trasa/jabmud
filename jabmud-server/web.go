@@ -2,53 +2,27 @@ package main
 
 import (
 	"fmt"
-	"github.com/julienschmidt/httprouter"
-	"io"
+	"github.com/gorilla/mux"
+	"html"
 	"log"
 	"net/http"
-	"time"
 )
 
 const webBaseDir = "web"
 const port = 8888
 const defaultPage = "index.html"
 
-func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Fprint(w, "Welcome!\n")
-}
-
-func Hello(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	fmt.Fprintf(w, "hello, %s!\n", ps.ByName("name"))
+func Index(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
 }
 
 func connectHttpServer() {
 
-	router := httprouter.New()
-	router.GET("/", Index)
-	router.GET("/hello/:name", Hello)
+	router := mux.NewRouter().StrictSlash(true)
+
+	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
 
 	log.Printf("http listening on port %d", port)
-	http.ListenAndServe(fmt.Sprintf(":%d", port), router)
-}
-
-func render(w http.ResponseWriter, r *http.Request) {
-	requestedFile := r.URL.Path[1:]
-	// TODO switch this to use debug logging
-	log.Printf("render: '%s'", requestedFile)
-	if requestedFile == "" {
-		requestedFile = defaultPage
-	}
-
-	f, err := http.Dir(webBaseDir).Open(requestedFile)
-	defer f.Close()
-
-	if err == nil {
-		content := io.ReadSeeker(f)
-		http.ServeContent(w, r, requestedFile, time.Now(), content)
-		return
-	}
-	log.Printf("Error opening requested file %s: %v", requestedFile, err)
-	// TODO return some sort of 500 error,
-	// and return 404 only for when the file 'merely' can't be found..
-	http.NotFound(w, r)
+	http.Handle("/", router)
+	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 }

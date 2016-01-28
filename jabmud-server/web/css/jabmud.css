@@ -1,1 +1,17 @@
-/* todo jabmud.css */
+#mudConsole {
+    text-align: left;
+    margin-top: 0;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 25px;
+    padding:10px;
+    background:#fff;
+    height:270px;
+    border:1px solid #ACD8F0;
+    overflow:auto;
+}
+.console-row {
+    /*padding: 10px*/
+    margin-left: 15px;
+    margin-right: 15px;
+}

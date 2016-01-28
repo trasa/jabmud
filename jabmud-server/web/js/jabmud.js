@@ -18,6 +18,10 @@
                 function send() {
                     var buf = $('#buf');
                     var msg = buf.val();
+                    if (msg === "") {
+                        // nothing to do
+                        return;
+                    }
                     console.log("sending '" + msg + "'");
                     displayMessage("[sending '" + msg + "']");
                     buf.val('');

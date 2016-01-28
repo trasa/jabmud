@@ -1,9 +1,10 @@
 package main
+
 import (
-	"log"
-	"net/http"
 	"fmt"
 	"io"
+	"log"
+	"net/http"
 	"time"
 )
 
@@ -16,7 +17,6 @@ func ConnectHttpServer() {
 	log.Printf("http listening on port %d", port)
 	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 }
-
 
 func render(w http.ResponseWriter, r *http.Request) {
 	requestedFile := r.URL.Path[1:]

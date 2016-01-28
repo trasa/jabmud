@@ -14,8 +14,6 @@ func main() {
 	connectComponent()
 }
 
-
-
 func connectComponent() {
 	// connect as component
 	jid, _ := xmpp.ParseJID("jabmud.localhost")

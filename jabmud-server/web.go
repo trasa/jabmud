@@ -12,7 +12,7 @@ const webBaseDir = "web"
 const port = 8888
 const defaultPage = "index.html"
 
-func ConnectHttpServer() {
+func connectHttpServer() {
 	http.HandleFunc("/", render)
 	log.Printf("http listening on port %d", port)
 	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)

@@ -10,7 +10,7 @@ type Command struct {
 }
 
 func main() {
-	go ConnectHttpServer()
+	go connectHttpServer()
 	connectComponent()
 }
 

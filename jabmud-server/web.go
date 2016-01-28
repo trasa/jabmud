@@ -8,19 +8,26 @@ import (
 	"net/http"
 )
 
-const webBaseDir = "web"
 const port = 8888
-const defaultPage = "index.html"
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
+	http.Redirect(w, r, "/static/index.html", 302)
+}
+
+func SomeApi(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Some Api!! %q", html.EscapeString(r.URL.Path))
 }
 
 func connectHttpServer() {
-
 	router := mux.NewRouter().StrictSlash(true)
 
+	router.HandleFunc("/", Index)
+
+	// all static goes to /static/ files
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
+
+	// TODO write an api...
+	router.HandleFunc("/api/v1", SomeApi)
 
 	log.Printf("http listening on port %d", port)
 	http.Handle("/", router)

@@ -28,7 +28,7 @@ func connectComponent() {
 		case *xmpp.Message:
 			log.Printf("msg: %s says %s\n", v.From, v.Body)
 			// for fun, send a response
-			X.Out <- xmpp.Message{Body: "hi!", To: v.From, From: v.To}
+			X.Out <- xmpp.Message{Body: "hi!", To: v.From, From: v.To, Type: "chat"}
 		case *xmpp.Iq:
 			log.Printf("iq: ", v.Payload)
 		/* doesn't work

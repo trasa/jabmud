@@ -31,5 +31,5 @@ func connectHttpServer() {
 
 	log.Printf("http listening on port %d", port)
 	http.Handle("/", router)
-	http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
 }

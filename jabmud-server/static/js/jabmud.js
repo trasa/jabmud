@@ -63,10 +63,11 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                     var to = "jabmud.localhost";//msg.getAttribute('to');
                     var from = $('#jid').get(0).value; //msg.getAttribute('from');
 
-                    var reply = $msg({to: to, from: from, type: 'chat'})
-                    .cnode(Strophe.xmlElement('body', msg));
+//                    var reply = $msg({to: to, from: from, type: 'chat'}).cnode(Strophe.xmlElement('body', msg));
+//                    connection.send(reply.tree());
 
-                    connection.send(reply.tree());
+                    var iqCommand = $iq({ to: to, from: from, type: 'get'}).c('command').attrs({cmdName: msg});
+                    connection.send(iqCommand.tree());
 
                     // clear the buffer for the next line
                     buf.val('');

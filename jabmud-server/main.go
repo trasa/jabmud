@@ -1,19 +1,9 @@
 package main
 
 import (
-	"encoding/xml"
-	"fmt"
 	"github.com/emgee/go-xmpp/src/xmpp"
 	"log"
 )
-
-type Command struct {
-	Name string `xml:"cmdName,attr"`
-}
-
-func (c Command) String() string {
-	return fmt.Sprintf("<command cmdName='%s' />", c.Name)
-}
 
 func main() {
 	go connectHttpServer()
@@ -39,8 +29,7 @@ func connectComponent() {
 
 		case *xmpp.Iq:
 			log.Printf("iq: %T: %v", v.Payload, v.Payload)
-			var cmd Command
-			xml.Unmarshal([]byte(v.Payload), &cmd)
+			cmd := ParseCommand(v.Payload)
 			log.Printf("cmd: %s", cmd)
 
 		default:

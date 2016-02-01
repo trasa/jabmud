@@ -6,7 +6,7 @@ import (
 )
 
 func TestParseCommand(t *testing.T) {
-	s := "<command cmdName='blargh'></command>"
+	s := "<command name='blargh'></command>"
 	cmd := ParseCommand(s)
 	log.Printf("cmd: %s", cmd)
 
@@ -19,7 +19,7 @@ func TestParseCommand(t *testing.T) {
 }
 
 func TestParseCommandArgList(t *testing.T) {
-	s := "<command cmdName='blargh'><arg>one</arg><arg>two</arg></command>"
+	s := "<command name='blargh'><arg>one</arg><arg>two</arg></command>"
 	cmd := ParseCommand(s)
 	log.Printf("cmd: %s", cmd)
 

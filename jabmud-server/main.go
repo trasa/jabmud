@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/emgee/go-xmpp/src/xmpp"
 	"log"
+	"strings"
 )
 
 func main() {
@@ -29,8 +30,14 @@ func connectComponent() {
 
 		case *xmpp.Iq:
 			log.Printf("iq: %T: %v", v.Payload, v.Payload)
-			cmd := ParseCommand(v.Payload)
-			log.Printf("cmd: %s", cmd)
+			if strings.HasPrefix(v.Payload, "<command") {
+				cmd := ParseCommand(v.Payload)
+				log.Printf("cmd: %s", cmd)
+				// so now go do something with the command...
+			} else {
+				log.Printf("Not a command-iq: %s", v.Payload)
+				// now what?
+			}
 
 		default:
 			log.Printf("%T: %v\n", v, v)

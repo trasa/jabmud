@@ -6,12 +6,12 @@ import (
 )
 
 type Command struct {
-	Name    string   `xml:"cmdName,attr"`
+	Name    string   `xml:"name,attr"`
 	ArgList []string `xml:"arg"`
 }
 
 func (c Command) String() string {
-	s := fmt.Sprintf("<command cmdName='%s'>", c.Name)
+	s := fmt.Sprintf("<command name='%s'>", c.Name)
 	for _, ca := range c.ArgList {
 		s += fmt.Sprintf("<arg>%s</arg>", ca)
 	}

@@ -34,6 +34,7 @@ func connectComponent() {
 				cmd := ParseCommand(v.Payload)
 				log.Printf("cmd: %s", cmd)
 				// so now go do something with the command...
+				Run(cmd.Name) // TODO args
 			} else {
 				log.Printf("Not a command-iq: %s", v.Payload)
 				// now what?

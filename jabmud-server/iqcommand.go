@@ -5,12 +5,12 @@ import (
 	"fmt"
 )
 
-type Command struct {
+type IqCommand struct {
 	Name    string   `xml:"name,attr"`
 	ArgList []string `xml:"arg"`
 }
 
-func (c Command) String() string {
+func (c IqCommand) String() string {
 	s := fmt.Sprintf("<command name='%s'>", c.Name)
 	for _, ca := range c.ArgList {
 		s += fmt.Sprintf("<arg>%s</arg>", ca)
@@ -19,8 +19,8 @@ func (c Command) String() string {
 	return s
 }
 
-func ParseCommand(raw string) Command {
-	var cmd Command
+func ParseCommand(raw string) IqCommand {
+	var cmd IqCommand
 	xml.Unmarshal([]byte(raw), &cmd)
 	return cmd
 }

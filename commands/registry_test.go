@@ -1,8 +1,8 @@
-package main
+package commands
 
 import "testing"
 
-func TestExecutor(t *testing.T) {
+func TestCommandRun(t *testing.T) {
 	Run("l")
 	Run("look")
 	Run("notacommand")

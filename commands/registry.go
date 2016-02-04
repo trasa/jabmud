@@ -1,8 +1,6 @@
-package main
+package commands
+import "log"
 
-import (
-	"log"
-)
 
 type RunCommand func() // not sure args yet
 
@@ -15,6 +13,8 @@ func init() {
 	}
 }
 
+// Run the command identified in the knownCommands registry.
+// If the command (or an alias) isn't found, raises an error.
 func Run(command string) {
 	runner := knownCommands[command]
 	if runner != nil {
@@ -24,6 +24,8 @@ func Run(command string) {
 	}
 }
 
+// Look around you.
+// TODO move this to some other file full of command implementations
 func Look() {
 	log.Print("I looked")
 }

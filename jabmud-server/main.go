@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/emgee/go-xmpp/src/xmpp"
+	"github.com/trasa/jabmud/commands"
 	"log"
 	"strings"
-"github.com/trasa/jabmud/commands"
 )
 
 func main() {
@@ -35,7 +35,7 @@ func connectComponent() {
 				cmd := ParseCommand(v.Payload)
 				log.Printf("cmd: %s", cmd)
 				// so now go do something with the command...
-				commands.Run(cmd.Name) // TODO args
+				commands.Run(cmd.Name, cmd.ArgList)
 			} else {
 				log.Printf("Not a command-iq: %s", v.Payload)
 				// now what?

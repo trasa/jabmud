@@ -1,8 +1,8 @@
 package commands
+
 import "log"
 
-
-type RunCommand func() // not sure args yet
+type RunCommand func(args []string)
 
 var knownCommands = make(map[string]RunCommand)
 
@@ -15,10 +15,10 @@ func init() {
 
 // Run the command identified in the knownCommands registry.
 // If the command (or an alias) isn't found, raises an error.
-func Run(command string) {
+func Run(command string, args []string) {
 	runner := knownCommands[command]
 	if runner != nil {
-		runner()
+		runner(args)
 	} else {
 		log.Printf("%s is not a known command", command)
 	}
@@ -26,6 +26,6 @@ func Run(command string) {
 
 // Look around you.
 // TODO move this to some other file full of command implementations
-func Look() {
-	log.Print("I looked")
+func Look(args []string) {
+	log.Printf("I looked: %s", args)
 }

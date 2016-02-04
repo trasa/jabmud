@@ -30,7 +30,8 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                         $('#connect').get(0).value = 'connect';
                     } else if (status == Strophe.Status.CONNECTED) {
                         displayMessage('Strophe is connected.');
-                        connection.addHandler(onMessage, null, 'message', null, null,  null);
+                        connection.addHandler(onMessage, null, 'message', null, null, null);
+                        connection.addHandler(onIq, null, "iq", null, null, null)
                         connection.send($pres().tree());
                     }
                 }
@@ -44,6 +45,21 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                     var bodyStr = $('<div/>').append(bodyElements).html();
 
                     displayMessage("(" + type + " from " + from + ") " + bodyStr);
+
+                    // we must return true to keep the handler alive.
+                    // returning false would remove it after it finishes.
+                    return true;
+                }
+
+                function onIq(msg) {
+                    var to = msg.getAttribute('to');
+                    var from = msg.getAttribute('from');
+                    var type = msg.getAttribute('type');
+                    var bodyElements = $(msg).text();
+
+                    var bodyStr = $('<div/>').append(bodyElements).html();
+
+                    displayMessage("(iq " + type + " from " + from + ") " + bodyStr);
 
                     // we must return true to keep the handler alive.
                     // returning false would remove it after it finishes.

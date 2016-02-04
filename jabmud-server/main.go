@@ -36,6 +36,9 @@ func connectComponent() {
 				log.Printf("cmd: %s", cmd)
 				// so now go do something with the command...
 				commands.Run(cmd.Name, cmd.ArgList)
+				response := v.Response("result")
+				response.Payload = "neat"
+				X.Out <- response
 			} else {
 				log.Printf("Not a command-iq: %s", v.Payload)
 				// now what?

@@ -32,6 +32,7 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                         displayMessage('Strophe is connected.');
                         connection.addHandler(onMessage, null, 'message', null, null, null);
                         connection.addHandler(onIq, null, "iq", null, null, null)
+                        // send presence
                         connection.send($pres().tree());
                     }
                 }
@@ -88,6 +89,20 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
 
                     // clear the buffer for the next line
                     buf.val('');
+
+                    // testing:
+                    var iqroster = $iq({type: 'get'}).c('query', {xmlns: 'jabber:iq:roster'});
+                    connection.sendIQ(iqroster, rostercallback)
+                }
+
+                function rostercallback(iq) {
+                    console.log("rostercallback");
+                    console.log(iq);
+                    $(iq).find('item').each(function(){
+                        var jid = $(this).attr('jid'); // The jabber_id of your contact
+                        // You can probably put them in a unordered list and and use their jids as ids.
+                        displayMessage(jid)
+                    });
                 }
 
                 $('#connect').click(function(e) {

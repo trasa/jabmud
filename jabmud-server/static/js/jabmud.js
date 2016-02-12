@@ -53,11 +53,14 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                 }
 
                 function onIq(msg) {
+                    console.log(msg)
                     var to = msg.getAttribute('to');
                     var from = msg.getAttribute('from');
                     var type = msg.getAttribute('type');
-                    var bodyElements = $(msg).text();
 
+                    // TODO: jquery.text() strips out all the xml leaving just the text, which
+                    // isn't really what we want.
+                    var bodyElements = $(msg).text();
                     var bodyStr = $('<div/>').append(bodyElements).html();
 
                     displayMessage("(iq " + type + " from " + from + ") " + bodyStr);
@@ -91,10 +94,12 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                     buf.val('');
 
                     // testing:
-                    var iqroster = $iq({type: 'get'}).c('query', {xmlns: 'jabber:iq:roster'});
-                    connection.sendIQ(iqroster, rostercallback)
+                    // var iqroster = $iq({type: 'get'}).c('query', {xmlns: 'jabber:iq:roster'});
+                    // connection.sendIQ(iqroster, rostercallback)
                 }
 
+                // testing
+                /*
                 function rostercallback(iq) {
                     console.log("rostercallback");
                     console.log(iq);
@@ -104,6 +109,7 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                         displayMessage(jid)
                     });
                 }
+                */
 
                 $('#connect').click(function(e) {
                     // Uncomment the following lines to spy on the wire traffic.

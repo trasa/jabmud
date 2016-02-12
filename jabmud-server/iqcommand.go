@@ -19,7 +19,7 @@ func (c IqCommand) String() string {
 	return s
 }
 
-func ParseCommand(raw string) IqCommand {
+func Deserialize(raw string) IqCommand {
 	var cmd IqCommand
 	xml.Unmarshal([]byte(raw), &cmd)
 	return cmd

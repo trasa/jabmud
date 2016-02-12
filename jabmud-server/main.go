@@ -5,6 +5,7 @@ import (
 	"github.com/trasa/jabmud/commands"
 	"log"
 	"strings"
+	"encoding/xml"
 )
 
 func main() {
@@ -32,16 +33,19 @@ func connectComponent() {
 		case *xmpp.Iq:
 			log.Printf("iq: %T: %v", v.Payload, v.Payload)
 			if strings.HasPrefix(v.Payload, "<command") {
-				cmd := ParseCommand(v.Payload)
+				cmd := Deserialize(v.Payload)
 				log.Printf("cmd: %s", cmd)
 				// so now go do something with the command...
-				commands.Run(cmd.Name, cmd.ArgList)
+				payload := commands.Run(cmd.Name, cmd.ArgList)
 				response := v.Response("result")
-				response.Payload = "neat"
+				marshalbytes, _ := xml.Marshal(payload)
+				response.Payload = string(marshalbytes)
+				log.Printf("sending response: %s", response.Payload)
 				X.Out <- response
 			} else {
 				log.Printf("Not a command-iq: %s", v.Payload)
-				// now what?
+				response := v.Response("error")
+				X.Out <- response
 			}
 
 		default:

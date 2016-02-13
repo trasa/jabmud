@@ -8,8 +8,9 @@ var knownCommands = make(map[string]RunCommand)
 
 func init() {
 	knownCommands = map[string]RunCommand{
-		"l":    Look,
-		"look": Look,
+		"l":     Look,
+		"login": Login,
+		"look":  Look,
 	}
 }
 
@@ -29,9 +30,17 @@ type LookResult struct {
 	Value string
 }
 
+type LoginResult struct {
+	Success bool
+}
+
 // Look around you.
-// TODO move this to some other file full of command implementations
 func Look(args []string) interface{} {
 	log.Printf("I looked: %s", args)
 	return LookResult{"You don't see anything."}
+}
+
+func Login(args []string) interface{} {
+	log.Print("Login %s", args)
+	return LoginResult{true}
 }

@@ -1,11 +1,11 @@
 package main
 
 import (
+	"encoding/xml"
 	"github.com/emgee/go-xmpp/src/xmpp"
 	"github.com/trasa/jabmud/commands"
 	"log"
 	"strings"
-	"encoding/xml"
 )
 
 func main() {

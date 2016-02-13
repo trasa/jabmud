@@ -134,6 +134,18 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                     send();
                 });
 
+                $('#testing').click(function() {
+
+                    var to = "localhost";
+                    var from = $('#jid').get(0).value;
+
+                    var iqCommand = $iq({ to: to, from: from, type: 'get'}).c('query').attrs({
+                        xmlns: "http://jabber.org/protocol/disco#items",
+                        node: "online users"});
+                    displayMessage("sending command");
+                    connection.send(iqCommand.tree());
+                });
+
                 $('#buf')
                     .bind("enterKey", function(e) {
                         send();

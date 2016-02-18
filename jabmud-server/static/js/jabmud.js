@@ -31,7 +31,8 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                     } else if (status == Strophe.Status.CONNECTED) {
                         displayMessage('Strophe is connected.');
                         connection.addHandler(onMessage, null, 'message', null, null, null);
-                        connection.addHandler(onIq, null, "iq", null, null, null)
+                        connection.addHandler(onIq, null, "iq", null, null, null);
+                        connection.addHandler(onPresence, null, "presence", null, null, null);
                         // send presence
                         connection.send($pres().tree());
                     }
@@ -53,7 +54,7 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                 }
 
                 function onIq(msg) {
-                    console.log(msg)
+                    console.log(msg);
                     var to = msg.getAttribute('to');
                     var from = msg.getAttribute('from');
                     var type = msg.getAttribute('type');
@@ -64,6 +65,19 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                     var bodyStr = $('<div/>').append(bodyElements).html();
 
                     displayMessage("(iq " + type + " from " + from + ") " + bodyStr);
+
+                    // we must return true to keep the handler alive.
+                    // returning false would remove it after it finishes.
+                    return true;
+                }
+
+                function onPresence(msg) {
+                    console.log(msg);
+                    var to = msg.getAttribute("to");
+                    var from = msg.getAttribute("from");
+                    var body = $('<div/>').text($(msg).html()).html();
+
+                    displayMessage("(presence from " + from + ") :" + body);
 
                     // we must return true to keep the handler alive.
                     // returning false would remove it after it finishes.
@@ -135,15 +149,15 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                 });
 
                 $('#testing').click(function() {
-
-                    var to = "localhost";
+                    var to = "jabmud.localhost/mynick";
                     var from = $('#jid').get(0).value;
 
-                    var iqCommand = $iq({ to: to, from: from, type: 'get'}).c('query').attrs({
-                        xmlns: "http://jabber.org/protocol/disco#items",
-                        node: "online users"});
+                    var c = $pres({ to: to, from: from })
+                        .c('x').attrs({
+                            xmlns: "http://jabber.org/protocol/muc"
+                        });
                     displayMessage("sending command");
-                    connection.send(iqCommand.tree());
+                    connection.send(c.tree());
                 });
 
                 $('#buf')

@@ -40,7 +40,14 @@ func Look(args []string) interface{} {
 	return LookResult{"You don't see anything."}
 }
 
+// Tells the server that you are here and we should note your presence.
+// I'd rather use something built-in, like, say, 'presence' but haven't
+// been able to get that to function between client, ejabberd, and this
+// component. So leaving that as a TODO.
 func Login(args []string) interface{} {
 	log.Print("Login %s", args)
+	//	playerName := args[0]
+	// if the player isn't in the game world, put them there in the start room
+	// some other boring setup of their character...
 	return LoginResult{true}
 }

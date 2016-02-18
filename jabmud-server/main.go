@@ -48,6 +48,14 @@ func connectComponent() {
 				X.Out <- response
 			}
 
+		case *xmpp.Presence:
+			// player name is in to:jabmud.localhost/(playername)
+			response := HandlePresence(v)
+			if response != nil {
+				log.Printf("Presence Response: %s", response)
+				X.Out <- response
+			}
+
 		default:
 			log.Printf("%T: %v\n", v, v)
 		}

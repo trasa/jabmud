@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/xml"
 	"github.com/emgee/go-xmpp/src/xmpp"
 	"github.com/trasa/jabmud/commands"
 	"log"
@@ -33,13 +32,12 @@ func connectComponent() {
 		case *xmpp.Iq:
 			log.Printf("iq: %T: %v", v.Payload, v.Payload)
 			if strings.HasPrefix(v.Payload, "<command") {
-				cmd := Deserialize(v.Payload)
+				cmd := DeserializeIqCommand(v.Payload)
 				log.Printf("cmd: %s", cmd)
 				// so now go do something with the command...
-				payload := commands.Run(cmd.Name, cmd.ArgList)
+				payload := commands.Serialize(commands.Run("TODO GET PLAYER ID", cmd.Name, cmd.ArgList))
 				response := v.Response("result")
-				marshalbytes, _ := xml.Marshal(payload)
-				response.Payload = string(marshalbytes)
+				response.Payload = payload
 				log.Printf("sending response: %s", response.Payload)
 				X.Out <- response
 			} else {
@@ -50,14 +48,14 @@ func connectComponent() {
 
 		case *xmpp.Presence:
 			// player name is in to:jabmud.localhost/(playername)
-			response := HandlePresence(v)
-			if response != nil {
+			if response := HandlePresence(v); response != nil {
 				log.Printf("Presence Response: %s", response)
 				X.Out <- response
 			}
 
 		default:
-			log.Printf("%T: %v\n", v, v)
+			log.Printf("(unhandled) %T: %v\n", v, v)
 		}
 	}
 }
+

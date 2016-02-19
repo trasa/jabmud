@@ -1,53 +1,58 @@
 package commands
 
-import "log"
+import (
+	"log"
+	"encoding/xml"
+)
 
-type RunCommand func(args []string) interface{}
+type RunCommand func(playerId string, args []string) interface{}
 
 var knownCommands = make(map[string]RunCommand)
 
 func init() {
 	knownCommands = map[string]RunCommand{
 		"l":     Look,
-		"login": Login,
 		"look":  Look,
+		"who":	 Who,
 	}
 }
 
 // Run the command identified in the knownCommands registry.
 // If the command (or an alias) isn't found, raises an error.
-func Run(command string, args []string) interface{} {
+func Run(playerId string, command string, args []string) interface{} {
 	runner := knownCommands[command]
 	if runner != nil {
-		return runner(args)
+		return runner(playerId, args)
 	} else {
 		log.Printf("%s is not a known command", command)
 		return nil
 	}
 }
 
+// Serialize obj into it's xml representation as a string.
+// If obj is nil, return empty-string.
+func Serialize(obj interface{}) string {
+	if obj == nil {
+		return ""
+	}
+	bytes, _ := xml.Marshal(obj)
+	return string(bytes)
+}
+
+
 type LookResult struct {
 	Value string
 }
 
-type LoginResult struct {
-	Success bool
-}
 
 // Look around you.
-func Look(args []string) interface{} {
-	log.Printf("I looked: %s", args)
+func Look(playerId string, args []string) interface{} {
+	log.Printf("%s looked: %s", playerId, args)
 	return LookResult{"You don't see anything."}
 }
 
-// Tells the server that you are here and we should note your presence.
-// I'd rather use something built-in, like, say, 'presence' but haven't
-// been able to get that to function between client, ejabberd, and this
-// component. So leaving that as a TODO.
-func Login(args []string) interface{} {
-	log.Print("Login %s", args)
-	//	playerName := args[0]
-	// if the player isn't in the game world, put them there in the start room
-	// some other boring setup of their character...
-	return LoginResult{true}
+// Who else is online?
+func Who(playerId string, args []string) interface{} {
+	log.Printf("%s wants to know who is online", playerId)
+	return nil // TODO
 }

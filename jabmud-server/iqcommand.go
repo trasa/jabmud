@@ -19,8 +19,8 @@ func (c IqCommand) String() string {
 	return s
 }
 
-func Deserialize(raw string) IqCommand {
+func DeserializeIqCommand(rawxml string) IqCommand {
 	var cmd IqCommand
-	xml.Unmarshal([]byte(raw), &cmd)
+	xml.Unmarshal([]byte(rawxml), &cmd)
 	return cmd
 }

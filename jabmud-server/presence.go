@@ -4,7 +4,7 @@ import (
 	"encoding/xml"
 	"github.com/emgee/go-xmpp/src/xmpp"
 	"log"
-"github.com/trasa/jabmud/commands"
+	"github.com/trasa/jabmud/world"
 )
 
 // Deal with an incoming Presence message, returning a presence
@@ -13,15 +13,15 @@ func HandlePresence(presence *xmpp.Presence) (response interface{}) {
 	log.Printf("pres: type %s to %s from %s", presence.Type, presence.To, presence.From)
 	// pres: type  to jabmud.localhost/mynick from tony.rasa@bw-mbp-trasa.glu.com/39118645601455771114633872
 	tojid, _ := xmpp.ParseJID(presence.To)
-	player := commands.Player{Name: tojid.Resource, Jid: presence.From}
+	player := world.Player{Name: tojid.Resource, Jid: presence.From}
 	switch presence.Type {
 	case "unavailable":
 		// if type == unavailable then user has logged off
 		log.Printf("logout name %s, jid %s", tojid.Resource, presence.From)
-		commands.Logout(player)
+		world.Logout(player)
 
 	case "":
-		if e := commands.Login(player); e != nil {
+		if e := world.Login(player); e != nil {
 			response = newErrorPresence(presence)
 		} else {
 			// success! response should reflect success case here...

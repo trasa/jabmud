@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/emgee/go-xmpp/src/xmpp"
-	"github.com/trasa/jabmud/commands"
+	"github.com/trasa/jabmud/world"
 	"log"
 	"strings"
 )
@@ -33,10 +33,10 @@ func connectComponent() {
 			log.Printf("iq: %T: %v", v.Payload, v.Payload)
 			if strings.HasPrefix(v.Payload, "<command") {
 				cmd := DeserializeIqCommand(v.Payload)
-				player := commands.FindPlayerByJid(v.From)
+				player := world.FindPlayerByJid(v.From)
 				log.Printf("cmd: %s - %s", player, cmd)
 				// so now go do something with the command...
-				payload := commands.Serialize(commands.Run(player, cmd.Name, cmd.ArgList))
+				payload := world.Serialize(world.Run(player, cmd.Name, cmd.ArgList))
 				response := v.Response("result")
 				response.Payload = payload
 				log.Printf("sending response: %s", response.Payload)

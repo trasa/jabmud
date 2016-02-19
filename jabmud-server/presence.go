@@ -18,10 +18,10 @@ func HandlePresence(presence *xmpp.Presence) (response interface{}) {
 	case "unavailable":
 		// if type == unavailable then user has logged off
 		log.Printf("logout name %s, jid %s", tojid.Resource, presence.From)
-		Logout(player)
+		commands.Logout(player)
 
 	case "":
-		if e := Login(player); e != nil {
+		if e := commands.Login(player); e != nil {
 			response = newErrorPresence(presence)
 		} else {
 			// success! response should reflect success case here...

@@ -1,19 +1,18 @@
-package main
+package commands
 
 import (
-	"github.com/trasa/jabmud/commands"
 	"fmt"
 	"log"
 )
 
-var knownPlayersById = make(map[string]commands.Player)
-var knownPlayersByJid = make(map[string]commands.Player)
+var knownPlayersById = make(map[string]Player)
+var knownPlayersByJid = make(map[string]Player)
 
-func FindPlayerByJid(jid string) commands.Player {
+func FindPlayerByJid(jid string) Player {
 	return knownPlayersByJid[jid]
 }
 
-func Login(player commands.Player) error {
+func Login(player Player) error {
 	if player.Id == "" {
 		return fmt.Errorf("Login: JID '%s' didn't provide a valid Id", player.Jid)
 	}
@@ -23,7 +22,7 @@ func Login(player commands.Player) error {
 	return nil
 }
 
-func Logout(player commands.Player) error {
+func Logout(player Player) error {
 	if player.Id == "" {
 		return fmt.Errorf("Logout: JID '%s' didn't provide a valid Id", player.Jid)
 	}

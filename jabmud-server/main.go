@@ -33,7 +33,7 @@ func connectComponent() {
 			log.Printf("iq: %T: %v", v.Payload, v.Payload)
 			if strings.HasPrefix(v.Payload, "<command") {
 				cmd := DeserializeIqCommand(v.Payload)
-				player := FindPlayerByJid(v.From)
+				player := commands.FindPlayerByJid(v.From)
 				log.Printf("cmd: %s - %s", player, cmd)
 				// so now go do something with the command...
 				payload := commands.Serialize(commands.Run(player, cmd.Name, cmd.ArgList))

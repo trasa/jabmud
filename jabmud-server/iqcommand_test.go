@@ -7,7 +7,7 @@ import (
 
 func TestParseCommand(t *testing.T) {
 	s := "<command name='blargh'></command>"
-	cmd := Deserialize(s)
+	cmd := DeserializeIqCommand(s)
 	log.Printf("cmd: %s", cmd)
 
 	if cmd.Name != "blargh" {
@@ -20,7 +20,7 @@ func TestParseCommand(t *testing.T) {
 
 func TestParseCommandArgList(t *testing.T) {
 	s := "<command name='blargh'><arg>one</arg><arg>two</arg></command>"
-	cmd := Deserialize(s)
+	cmd := DeserializeIqCommand(s)
 	log.Printf("cmd: %s", cmd)
 
 	if cmd.Name != "blargh" {

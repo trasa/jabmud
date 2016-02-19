@@ -1,28 +1,19 @@
 package main
 
 import (
+	"github.com/trasa/jabmud/commands"
 	"fmt"
 	"log"
 )
 
-type Player struct {
-	Id   string
-	Name string
-	Jid  string
-}
+var knownPlayersById = make(map[string]commands.Player)
+var knownPlayersByJid = make(map[string]commands.Player)
 
-func (p Player) String() string {
-	return fmt.Sprintf("(Player Id='%s', Name='%s', Jid='%s'", p.Id, p.Name, p.Jid)
-}
-
-var knownPlayersById = make(map[string]Player)
-var knownPlayersByJid = make(map[string]Player)
-
-func FindPlayerByJid(jid string) Player {
+func FindPlayerByJid(jid string) commands.Player {
 	return knownPlayersByJid[jid]
 }
 
-func Login(player Player) error {
+func Login(player commands.Player) error {
 	if player.Id == "" {
 		return fmt.Errorf("Login: JID '%s' didn't provide a valid Id", player.Jid)
 	}
@@ -32,7 +23,7 @@ func Login(player Player) error {
 	return nil
 }
 
-func Logout(player Player) error {
+func Logout(player commands.Player) error {
 	if player.Id == "" {
 		return fmt.Errorf("Logout: JID '%s' didn't provide a valid Id", player.Jid)
 	}

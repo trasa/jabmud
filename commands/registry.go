@@ -5,7 +5,7 @@ import (
 	"log"
 )
 
-type RunCommand func(playerId string, args []string) interface{}
+type RunCommand func(player Player, args []string) interface{}
 
 var knownCommands = make(map[string]RunCommand)
 
@@ -19,10 +19,10 @@ func init() {
 
 // Run the command identified in the knownCommands registry.
 // If the command (or an alias) isn't found, raises an error.
-func Run(playerId string, command string, args []string) interface{} {
+func Run(player Player, command string, args []string) interface{} {
 	runner := knownCommands[command]
 	if runner != nil {
-		return runner(playerId, args)
+		return runner(player, args)
 	} else {
 		log.Printf("%s is not a known command", command)
 		return nil
@@ -44,13 +44,13 @@ type LookResult struct {
 }
 
 // Look around you.
-func Look(playerId string, args []string) interface{} {
-	log.Printf("%s looked: %s", playerId, args)
+func Look(player Player, args []string) interface{} {
+	log.Printf("%s looked: %s", player , args)
 	return LookResult{"You don't see anything."}
 }
 
 // Who else is online?
-func Who(playerId string, args []string) interface{} {
-	log.Printf("%s wants to know who is online", playerId)
+func Who(player Player, args []string) interface{} {
+	log.Printf("%s wants to know who is online", player)
 	return nil // TODO
 }

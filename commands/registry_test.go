@@ -4,9 +4,10 @@ import "testing"
 
 func TestCommandRun(t *testing.T) {
 	args := []string{"a", "b", "c"}
-	Run("pid", "l", args)
-	Run("pid", "look", nil)
-	Run("pid", "notacommand", nil)
+	p := Player { Id:"id", Jid:"jid", Name:"Guy"}
+	Run(p, "l", args)
+	Run(p, "look", nil)
+	Run(p, "notacommand", nil)
 }
 
 func TestSerializeLookResult(t *testing.T) {

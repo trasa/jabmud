@@ -36,7 +36,7 @@ func connectComponent() {
 				player := FindPlayerByJid(v.From)
 				log.Printf("cmd: %s - %s", player, cmd)
 				// so now go do something with the command...
-				payload := commands.Serialize(commands.Run("TODO GET PLAYER ID", cmd.Name, cmd.ArgList))
+				payload := commands.Serialize(commands.Run(player, cmd.Name, cmd.ArgList))
 				response := v.Response("result")
 				response.Payload = payload
 				log.Printf("sending response: %s", response.Payload)

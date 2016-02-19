@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/emgee/go-xmpp/src/xmpp"
+	"github.com/trasa/jabmud/commands"
 	"testing"
-"github.com/trasa/jabmud/commands"
 )
 
 func TestErrorPresence(t *testing.T) {
@@ -31,4 +31,3 @@ func TestSuccessPresence(t *testing.T) {
 		t.Errorf("serialize didn't get expected string\nexp=%s\nact=%s", expected, str)
 	}
 }
-

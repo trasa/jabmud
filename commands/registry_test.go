@@ -10,7 +10,7 @@ func TestCommandRun(t *testing.T) {
 }
 
 func TestSerializeLookResult(t *testing.T) {
-	lookResult := LookResult { Value: "You see nothing." }
+	lookResult := LookResult{Value: "You see nothing."}
 
 	str := Serialize(lookResult)
 	expected := "<LookResult><Value>You see nothing.</Value></LookResult>"

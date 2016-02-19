@@ -6,7 +6,7 @@ import (
 )
 
 type Player struct {
-	Id string
+	Id   string
 	Name string
 	Jid  string
 }

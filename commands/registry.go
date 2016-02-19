@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"log"
 	"encoding/xml"
+	"log"
 )
 
 type RunCommand func(playerId string, args []string) interface{}
@@ -11,9 +11,9 @@ var knownCommands = make(map[string]RunCommand)
 
 func init() {
 	knownCommands = map[string]RunCommand{
-		"l":     Look,
-		"look":  Look,
-		"who":	 Who,
+		"l":    Look,
+		"look": Look,
+		"who":  Who,
 	}
 }
 
@@ -39,11 +39,9 @@ func Serialize(obj interface{}) string {
 	return string(bytes)
 }
 
-
 type LookResult struct {
 	Value string
 }
-
 
 // Look around you.
 func Look(playerId string, args []string) interface{} {

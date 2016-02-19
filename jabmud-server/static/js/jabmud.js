@@ -106,24 +106,21 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
 
                     // clear the buffer for the next line
                     buf.val('');
-
-                    // testing:
-                    // var iqroster = $iq({type: 'get'}).c('query', {xmlns: 'jabber:iq:roster'});
-                    // connection.sendIQ(iqroster, rostercallback)
                 }
 
-                // testing
-                /*
-                function rostercallback(iq) {
-                    console.log("rostercallback");
-                    console.log(iq);
-                    $(iq).find('item').each(function(){
-                        var jid = $(this).attr('jid'); // The jabber_id of your contact
-                        // You can probably put them in a unordered list and and use their jids as ids.
-                        displayMessage(jid)
-                    });
+                function sendPresence() {
+                    var playerName = $('#playerName').val();
+                    var to = "jabmud.localhost/" + playerName;
+                    var from = $('#jid').get(0).value;
+
+                    var c = $pres({ to: to, from: from })
+                        .c('x').attrs({
+                            xmlns: "http://jabber.org/protocol/muc"
+                        });
+                    displayMessage("sending login for " + playerName);
+                    connection.send(c.tree());
                 }
-                */
+
 
                 $('#connect').click(function(e) {
                     // Uncomment the following lines to spy on the wire traffic.
@@ -144,20 +141,16 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                     }
                 });
 
+                $('#login').click(function() {
+                    sendPresence();
+                });
+
                 $('#send').click(function(e) {
                     send();
                 });
 
                 $('#testing').click(function() {
-                    var to = "jabmud.localhost/mynick";
-                    var from = $('#jid').get(0).value;
-
-                    var c = $pres({ to: to, from: from })
-                        .c('x').attrs({
-                            xmlns: "http://jabber.org/protocol/muc"
-                        });
-                    displayMessage("sending command");
-                    connection.send(c.tree());
+                    // Testing / experimental code goes in here.
                 });
 
                 $('#buf')

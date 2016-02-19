@@ -5,14 +5,24 @@
 </div>
 <div class="row">
     <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Authentication</h3>
+        </div>
         <div class="panel-body">
-            <div class="row">
+            <div class="form-group">
                 <label for='jid'>JID:</label>
-                <input type='text' id='jid' value="tony.rasa@bw-mbp-trasa.glu.com"/>
-                <label for='pass'>Password:</label>
-                <input type='password' id='pass' value="password" />
-                <input type='button' id='connect' value='connect' />
+                <input class='form-control' type='text' id='jid' value="tony.rasa@bw-mbp-trasa.glu.com"/>
             </div>
+            <div class="form-group">
+                <label for='pass'>Password:</label>
+                <input type='password' id='pass' value="password" class="form-control" />
+            </div>
+            <input type='button' class="btn btn-default" id='connect' value='connect' />
+            <div class="form-group">
+                <label for="playerName">Name:</label>
+                <input type="text" id="playerName" value="SomeDood" class="form-control" />
+            </div>
+            <input type="button" class="btn btn-default" id="login" value="login"/>
         </div>
     </div>
 </div>

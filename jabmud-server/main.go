@@ -5,6 +5,7 @@ import (
 	"github.com/trasa/jabmud/world"
 	"log"
 	"strings"
+"github.com/trasa/jabmud/commands"
 )
 
 func main() {
@@ -36,7 +37,7 @@ func connectComponent() {
 				player := world.FindPlayerByJid(v.From)
 				log.Printf("cmd: %s - %s", player, cmd)
 				// so now go do something with the command...
-				payload := world.Serialize(world.Run(player, cmd.Name, cmd.ArgList))
+				payload := commands.Serialize(commands.Run(player, cmd.Name, cmd.ArgList))
 				response := v.Response("result")
 				response.Payload = payload
 				log.Printf("sending response: %s", response.Payload)

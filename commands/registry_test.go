@@ -1,10 +1,13 @@
-package world
+package commands
 
-import "testing"
+import (
+	"testing"
+	"github.com/trasa/jabmud/world"
+)
 
 func TestCommandRun(t *testing.T) {
 	args := []string{"a", "b", "c"}
-	p := Player { Id:"id", Jid:"jid", Name:"Guy"}
+	p := world.Player { Id:"id", Jid:"jid", Name:"Guy"}
 	Run(p, "l", args)
 	Run(p, "look", nil)
 	Run(p, "notacommand", nil)

@@ -8,8 +8,20 @@ import (
 var knownPlayersById = make(map[string]Player)
 var knownPlayersByJid = make(map[string]Player)
 
+func ClearKnownPlayers() {
+	knownPlayersById = make(map[string]Player)
+	knownPlayersByJid = make(map[string]Player)
+}
+
 func FindPlayerByJid(jid string) Player {
 	return knownPlayersByJid[jid]
+}
+
+func GetAllPlayers() (result []Player) {
+	for _, v := range knownPlayersById {
+		result = append(result, v)
+	}
+	return result
 }
 
 func Login(player Player) error {

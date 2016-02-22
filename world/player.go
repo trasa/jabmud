@@ -8,6 +8,6 @@ type Player struct {
 }
 
 func (p Player) String() string {
-	return fmt.Sprintf("(Player Id='%s', Name='%s', Jid='%s'", p.Id, p.Name, p.Jid)
+	return fmt.Sprintf("(Player Id='%s', Name='%s', Jid='%s')", p.Id, p.Name, p.Jid)
 }
 

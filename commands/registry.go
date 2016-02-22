@@ -50,8 +50,3 @@ func Look(player world.Player, args []string) interface{} {
 	return LookResult{"You don't see anything."}
 }
 
-// Who else is online?
-func Who(player world.Player, args []string) interface{} {
-	log.Printf("%s wants to know who is online", player)
-	return nil // TODO
-}

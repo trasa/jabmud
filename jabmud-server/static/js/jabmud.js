@@ -58,13 +58,10 @@ var BOSH_SERVICE = 'http://localhost:5280/http-bind'
                     var to = msg.getAttribute('to');
                     var from = msg.getAttribute('from');
                     var type = msg.getAttribute('type');
+                    // this mess keeps the xmlishness of the body intact
+                    var body = $('<div/>').text($(msg).html()).html();
 
-                    // TODO: jquery.text() strips out all the xml leaving just the text, which
-                    // isn't really what we want.
-                    var bodyElements = $(msg).text();
-                    var bodyStr = $('<div/>').append(bodyElements).html();
-
-                    displayMessage("(iq " + type + " from " + from + ") " + bodyStr);
+                    displayMessage("(iq " + type + " from " + from + ") :" + body);
 
                     // we must return true to keep the handler alive.
                     // returning false would remove it after it finishes.

@@ -13,7 +13,7 @@ func HandlePresence(presence *xmpp.Presence) (response interface{}) {
 	log.Printf("pres: type %s to %s from %s", presence.Type, presence.To, presence.From)
 	// pres: type  to jabmud.localhost/mynick from tony.rasa@bw-mbp-trasa.glu.com/39118645601455771114633872
 	tojid, _ := xmpp.ParseJID(presence.To)
-	player := world.Player{Name: tojid.Resource, Jid: presence.From}
+	player := world.Player{Name: tojid.Resource, Jid: presence.From, Id: tojid.Resource}
 	switch presence.Type {
 	case "unavailable":
 		// if type == unavailable then user has logged off
@@ -21,10 +21,13 @@ func HandlePresence(presence *xmpp.Presence) (response interface{}) {
 		world.Logout(player)
 
 	case "":
+		log.Printf("Attempting login for %s", player)
 		if e := world.Login(player); e != nil {
+			log.Printf("Login failed for player %s", player)
 			response = newErrorPresence(presence)
 		} else {
 			// success! response should reflect success case here...
+			log.Printf("Login Success for player %s", player)
 			response = newSuccessPresence(presence)
 		}
 	}

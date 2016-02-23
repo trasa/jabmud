@@ -7,7 +7,7 @@ import (
 type WhoResult struct {
 	// TODO this might have to become more sophisticated one day.
 	// just not today.
-	Players world.Player[]
+	Players []world.Player `xml:"Player"`
 }
 
 // Who else is online?

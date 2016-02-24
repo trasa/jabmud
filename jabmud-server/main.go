@@ -2,10 +2,7 @@ package main
 
 import (
 	"github.com/emgee/go-xmpp/src/xmpp"
-	"github.com/trasa/jabmud/commands"
-	"github.com/trasa/jabmud/world"
 	"log"
-	"strings"
 )
 
 func main() {

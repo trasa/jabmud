@@ -9,7 +9,7 @@ import (
 )
 
 func HandleIq(iq *xmpp.Iq) *xmpp.Iq {
-	log.Printf("iq: %T: %v", iq.Payload, iq.Payload)
+	log.Printf("Handle IQ: %T: %v", iq.Payload, iq.Payload)
 	if strings.HasPrefix(iq.Payload, "<command") {
 		return handleIqCommand(iq)
 	} else {
@@ -21,11 +21,15 @@ func HandleIq(iq *xmpp.Iq) *xmpp.Iq {
 func handleIqCommand(iq *xmpp.Iq) *xmpp.Iq {
 	cmd := DeserializeIqCommand(iq.Payload)
 	player := world.FindPlayerByJid(iq.From)
-	log.Printf("cmd: %s - %s", player, cmd)
+	if player == nil {
+		response := iq.Response("error")
+		response.Payload = "Not Logged In"
+		return response
+	}
+
 	// so now go do something with the command...
 	payload := commands.Serialize(commands.Run(player, cmd.Name, cmd.ArgList))
 	response := iq.Response("result")
 	response.Payload = payload
-	log.Printf("sending response: %s", response.Payload)
 	return response
 }

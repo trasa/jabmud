@@ -1,7 +1,8 @@
 package commands
+
 import (
-	"log"
 	"github.com/trasa/jabmud/world"
+	"log"
 )
 
 type WhoResult struct {
@@ -13,6 +14,6 @@ type WhoResult struct {
 // Who else is online?
 func Who(player world.Player, args []string) interface{} {
 	log.Printf("%s wants to know who is online", player)
-	players := world.GetAllPlayers();
-	return WhoResult { players }
+	players := world.GetAllPlayers()
+	return WhoResult{players}
 }

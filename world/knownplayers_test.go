@@ -1,13 +1,13 @@
 package world
-import (
-	"testing"
-	"log"
-)
 
+import (
+	"log"
+	"testing"
+)
 
 func TestLogin(t *testing.T) {
 	ClearKnownPlayers()
-	originalPlayer := Player { Id: "id", Name: "Name", Jid: "Jid"}
+	originalPlayer := Player{Id: "id", Name: "Name", Jid: "Jid"}
 	if err := Login(originalPlayer); err != nil {
 		t.Error("Failed to login")
 	}
@@ -20,8 +20,8 @@ func TestLogin(t *testing.T) {
 
 func TestGetAll(t *testing.T) {
 	ClearKnownPlayers()
-	playerA := Player { "a", "a", "a"}
-	playerB := Player { "b", "b", "b"}
+	playerA := Player{"a", "a", "a"}
+	playerB := Player{"b", "b", "b"}
 	if err := Login(playerA); err != nil {
 		t.Error("Failed to login A")
 	}

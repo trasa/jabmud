@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/xml"
 	"github.com/emgee/go-xmpp/src/xmpp"
-	"log"
 	"github.com/trasa/jabmud/world"
+	"log"
 )
 
 // Deal with an incoming Presence message, returning a presence

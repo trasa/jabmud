@@ -2,8 +2,8 @@ package commands
 
 import (
 	"encoding/xml"
-	"log"
 	"github.com/trasa/jabmud/world"
+	"log"
 )
 
 type RunCommand func(player world.Player, args []string) interface{}
@@ -46,7 +46,6 @@ type LookResult struct {
 
 // Look around you.
 func Look(player world.Player, args []string) interface{} {
-	log.Printf("%s looked: %s", player , args)
+	log.Printf("%s looked: %s", player, args)
 	return LookResult{"You don't see anything."}
 }
-

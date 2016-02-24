@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/emgee/go-xmpp/src/xmpp"
-	"testing"
 	"github.com/trasa/jabmud/commands"
+	"testing"
 )
 
 func TestErrorPresence(t *testing.T) {

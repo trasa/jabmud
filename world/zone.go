@@ -4,7 +4,7 @@ import "fmt"
 
 type Zone struct {
 	Id    string
-	Rooms map[string]Room
+	Rooms map[string]*Room
 	Name  string
 }
 

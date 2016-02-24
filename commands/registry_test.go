@@ -8,9 +8,9 @@ import (
 func TestCommandRun(t *testing.T) {
 	args := []string{"a", "b", "c"}
 	p := world.Player{Id: "id", Jid: "jid", Name: "Guy"}
-	Run(p, "l", args)
-	Run(p, "look", nil)
-	Run(p, "notacommand", nil)
+	Run(&p, "l", args)
+	Run(&p, "look", nil)
+	Run(&p, "notacommand", nil)
 }
 
 func TestSerializeLookResult(t *testing.T) {

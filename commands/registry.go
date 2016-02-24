@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-type RunCommand func(player world.Player, args []string) interface{}
+type RunCommand func(player *world.Player, args []string) interface{}
 
 var knownCommands = make(map[string]RunCommand)
 
@@ -20,7 +20,7 @@ func init() {
 
 // Run the command identified in the knownCommands registry.
 // If the command (or an alias) isn't found, raises an error.
-func Run(player world.Player, command string, args []string) interface{} {
+func Run(player *world.Player, command string, args []string) interface{} {
 	runner := knownCommands[command]
 	if runner != nil {
 		return runner(player, args)
@@ -38,14 +38,4 @@ func Serialize(obj interface{}) string {
 	}
 	bytes, _ := xml.Marshal(obj)
 	return string(bytes)
-}
-
-type LookResult struct {
-	Value string
-}
-
-// Look around you.
-func Look(player world.Player, args []string) interface{} {
-	log.Printf("%s looked: %s", player, args)
-	return LookResult{"You don't see anything."}
 }

@@ -3,24 +3,36 @@ package world
 import "log"
 
 type World struct {
-	Zones map[string]Zone
+	Zones map[string]*Zone
 }
 
 var worldInstance World
 
+var startZone = "sample"
+var startRoom = "start"
+
 func init() {
 	// Build a very boring world.
-	worldInstance = World{Zones: make(map[string]Zone)}
+	worldInstance = World{Zones: make(map[string]*Zone)}
 	sampleZone := Zone{
-		Id:    "Sample",
-		Name:  "Sample",
-		Rooms: make(map[string]Room),
+		Id:    startZone,
+		Name:  "Sample Zone",
+		Rooms: make(map[string]*Room),
 	}
-	worldInstance.Zones[sampleZone.Id] = sampleZone
+	worldInstance.Zones[sampleZone.Id] = &sampleZone
 
-	r := Room{Id: "start", Name: "Central Portal"}
-	sampleZone.Rooms[r.Id] = r
+	r := Room{
+		Zone:        sampleZone,
+		Id:          startRoom,
+		Name:        "Central Portal",
+		Description: "It's a boring room, with boring stuff in it.",
+	}
+	sampleZone.Rooms[r.Id] = &r
 
 	log.Print("World built.")
 
+}
+
+func StartRoom() *Room {
+	return worldInstance.Zones[startZone].Rooms[startRoom]
 }

@@ -31,20 +31,8 @@ func connectComponent() {
 			X.Out <- xmpp.Message{Body: "hi!", To: v.From, From: v.To, Type: "chat"}
 
 		case *xmpp.Iq:
-			log.Printf("iq: %T: %v", v.Payload, v.Payload)
-			if strings.HasPrefix(v.Payload, "<command") {
-				cmd := DeserializeIqCommand(v.Payload)
-				player := world.FindPlayerByJid(v.From)
-				log.Printf("cmd: %s - %s", player, cmd)
-				// so now go do something with the command...
-				payload := commands.Serialize(commands.Run(player, cmd.Name, cmd.ArgList))
-				response := v.Response("result")
-				response.Payload = payload
-				log.Printf("sending response: %s", response.Payload)
-				X.Out <- response
-			} else {
-				log.Printf("Not a command-iq: %s", v.Payload)
-				response := v.Response("error")
+			if response := HandleIq(v); response != nil {
+				log.Printf("Iq Response: %s", response)
 				X.Out <- response
 			}
 

@@ -14,7 +14,7 @@ end up regretting that...
 Instead of installing ejabber + services locally you can run it
 through a docker container, see ```docker\docker-build.sh```
 
-## ejabberd.yml configuration
+### ejabberd.yml configuration
 
 ejabberd needs to be told to open a listener for our component:
 
@@ -25,10 +25,23 @@ listen:
     module: ejabberd_service
     access: all
     shaper_rule: fast
-    ip: "127.0.0.1"
     hosts:
       "jabmud.localhost":
         password: "secret"
 ```
 
+### Opening Ports
 
+These are the ports that the docker-run script opens up.
+
+    -p 4560:4560 \
+    -p 5222:5222 \
+    -p 5269:5269 \
+    -p 5275:5275 \
+    -p 5280:5280 \
+    -p 5443:5443 \
+
+
+### Creating jabmud-user
+
+    -e "EJABBERD_USERS=jabmud_user@localhost:password"

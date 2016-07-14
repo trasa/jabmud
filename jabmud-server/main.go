@@ -1,19 +1,24 @@
 package main
 
 import (
+	"flag"
 	"github.com/emgee/go-xmpp/src/xmpp"
 	"log"
 )
 
 func main() {
+	jabberHostPtr := flag.String("jabberhost", "192.168.99.100", "ejabber host ip address")
+	jabberPortPtr := flag.String("jabberport", "5275", "ejabber host port")
+	flag.Parse()
+
 	go connectHttpServer()
-	connectComponent()
+	connectComponent(*jabberHostPtr, *jabberPortPtr)
 }
 
-func connectComponent() {
+func connectComponent(jabberHost string, jabberPort string) {
 	// connect as component
 	jid, _ := xmpp.ParseJID("jabmud.localhost")
-	stream, _ := xmpp.NewStream("localhost:5275", nil)
+	stream, _ := xmpp.NewStream(jabberHost+":"+jabberPort, nil)
 	X, _ := xmpp.NewComponentXMPP(stream, jid, "secret")
 	log.Printf("created component JID %v at %v\n", jid, X)
 

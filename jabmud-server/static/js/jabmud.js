@@ -1,4 +1,4 @@
-var BOSH_SERVICE = 'http://localhost:5280/http-bind'
+var BOSH_SERVICE = 'http://192.168.99.100:5280/http-bind'
 ;(function($) {
     var app = $.sammy(function() {
         this.use(Sammy.EJS);

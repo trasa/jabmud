@@ -78,6 +78,7 @@ listen:
     ##  "/pub/archive": mod_http_fileserver
     web_admin: true
     http_bind: true
+    http_poll: true
     ## register: true
     captcha: true
     {%- if env['EJABBERD_HTTPS'] == "true" %}

@@ -6,8 +6,13 @@ creating the basis for a text mud seemed like a good way to go at
 the time.
 
 JabMUD runs as an external component hosted through XEP-0114,
-allowing me to write this in Java instead of Erlang. I might 
+allowing me to write this in Go instead of Erlang. I might
 end up regretting that...
+
+## eJabberd Docker Container
+
+Instead of installing ejabber + services locally you can run it
+through a docker container, see ```docker\docker-build.sh```
 
 ## ejabberd.yml configuration
 
@@ -24,4 +29,6 @@ listen:
     hosts:
       "jabmud.localhost":
         password: "secret"
-```        
+```
+
+

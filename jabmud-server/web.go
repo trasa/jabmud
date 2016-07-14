@@ -24,6 +24,8 @@ func connectHttpServer() {
 	router.HandleFunc("/", Index)
 
 	// all static goes to /static/ files
+	// NOTE: this expects that the program working directory is jabmud/jabmud-server
+	// otherwise, all requests to /static will result in 404!
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
 
 	// TODO write an api...

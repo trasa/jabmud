@@ -6,7 +6,7 @@ type Room struct {
 	Id          string
 	Name        string
 	Description string
-	Zone        Zone
+	Zone        *Zone
 }
 
 func (r Room) String() string {

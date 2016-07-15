@@ -14,7 +14,7 @@ type LookResult struct {
 func Look(player *world.Player, args []string) interface{} {
 	log.Printf("%s looked: %s", player, args)
 
-	playerRoom := player.FindRoom()
+	playerRoom := player.Room
 	if playerRoom == nil {
 		return LookResult{
 			Title: "Not In A Room",

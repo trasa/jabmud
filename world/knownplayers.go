@@ -34,9 +34,8 @@ func Login(player *Player) error {
 	knownPlayersByJid[player.Jid] = player
 
 	// put the player in the start room
-	startRoom := StartRoom()
-	player.ZoneId = startRoom.Zone.Id
-	player.RoomId = startRoom.Id
+	player.Room = worldInstance.StartRoom
+
 	return nil
 }
 

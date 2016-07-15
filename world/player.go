@@ -3,11 +3,10 @@ package world
 import "fmt"
 
 type Player struct {
-	Id     string
-	Name   string
-	Jid    string
-	ZoneId string
-	RoomId string
+	Id   string
+	Name string
+	Jid  string
+	Room *Room
 }
 
 func (p *Player) String() string {
@@ -15,14 +14,8 @@ func (p *Player) String() string {
 }
 
 func (p *Player) FindZone() *Zone {
-	return worldInstance.Zones[p.ZoneId]
-}
-
-// Find the Room this player is in.
-func (p *Player) FindRoom() *Room {
-	zone := p.FindZone()
-	if zone != nil {
-		return zone.Rooms[p.RoomId]
+	if p.Room != nil {
+		return p.Room.Zone
 	}
 	return nil
 }

@@ -34,14 +34,14 @@ func Login(player *Player) error {
 	knownPlayersByJid[player.Jid] = player
 
 	// put the player in the start room
-	player.Room = worldInstance.StartRoom
-
+	worldInstance.StartRoom.AddPlayer(player)
 	return nil
 }
 
 func Logout(playerId string) error {
 	log.Printf("%s logged out", playerId)
 	player := knownPlayersById[playerId]
+	player.Room.RemovePlayer(player)
 	delete(knownPlayersById, playerId)
 	if player != nil {
 		delete(knownPlayersByJid, player.Jid)

@@ -24,14 +24,18 @@ func GetAllPlayers() (result []*Player) {
 	return result
 }
 
+func AddKnownPlayer(player *Player) {
+	knownPlayersById[player.Id] = player
+	knownPlayersByJid[player.Jid] = player
+}
+
 func Login(player *Player) error {
 	if player.Id == "" {
 		log.Printf("Player does not have a valid id: %s", player)
 		return fmt.Errorf("Login: JID '%s' didn't provide a valid Id", player.Jid)
 	}
 	log.Printf("%s logging in", player)
-	knownPlayersById[player.Id] = player
-	knownPlayersByJid[player.Jid] = player
+	AddKnownPlayer(player)
 
 	// put the player in the start room
 	worldInstance.StartRoom.AddPlayer(player)

@@ -15,7 +15,7 @@ type WhoResult struct {
 func Who(player *world.Player, args []string) interface{} {
 	log.Printf("%s wants to know who is online", player)
 	players := world.GetAllPlayers()
-	ids := make([]string, len(players))
+	ids := []string{}
 	for _, p := range players {
 		ids = append(ids, p.Id)
 	}

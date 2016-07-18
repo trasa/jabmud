@@ -17,7 +17,7 @@ func TestLookPlayerNotInRoom(t *testing.T) {
 }
 
 func TestLookPlayers(t *testing.T) {
-	room, _ := world.NewRoom(nil, "id", "name", "desc")
+	room := world.NewRoom(nil, "id", "name", "desc")
 	p := world.Player{
 		Id: "foo",
 	}

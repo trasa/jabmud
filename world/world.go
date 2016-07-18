@@ -22,10 +22,7 @@ func init() {
 	}
 	worldInstance.Zones[sampleZone.Id] = &sampleZone
 
-	r, err := NewRoom(&sampleZone, startRoomKey, "Central Portal", "It's a boring room, with boring stuff in it.")
-	if err != nil {
-		panic(err)
-	}
+	r := NewRoom(&sampleZone, startRoomKey, "Central Portal", "It's a boring room, with boring stuff in it.")
 	//Zone:        &sampleZone,
 	//Id:          startRoomKey,
 	//Name:        "Central Portal",

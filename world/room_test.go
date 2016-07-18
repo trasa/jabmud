@@ -3,10 +3,7 @@ package world
 import "testing"
 
 func TestAddPlayerToRoom(t *testing.T) {
-	room, err := NewRoom(nil, "id", "name", "description")
-	if err != nil {
-		panic(err)
-	}
+	room := NewRoom(nil, "id", "name", "description")
 	player := Player{
 		Id: "foo",
 	}

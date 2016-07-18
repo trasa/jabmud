@@ -33,10 +33,14 @@ func (r Room) String() string {
 }
 
 func (r *Room) RemovePlayer(player *Player) {
-	// TODO
+	delete(r.Players, player.Id)
+	player.Room = nil
 }
 
 func (r *Room) AddPlayer(player *Player) {
+	if player.Room != nil {
+		player.Room.RemovePlayer(player)
+	}
 	r.Players[player.Id] = player
 	player.Room = r
 }

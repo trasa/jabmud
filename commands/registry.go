@@ -14,6 +14,8 @@ func init() {
 	knownCommands = map[string]RunCommand{
 		"l":    Look,
 		"look": Look,
+		"m":    MoveDirection,
+		"move": MoveDirection,
 		"who":  Who,
 	}
 }

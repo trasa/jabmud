@@ -26,15 +26,10 @@ func TestLookPlayers(t *testing.T) {
 	result := Look(&p, nil).(LookResult)
 	log.Printf("result %v", result)
 
-	foundIt := false
-	for _, id := range result.PlayerIds {
-		if id == "foo" {
-			foundIt = true
-			break
-		}
+	if len(result.PlayerIds) != 1 {
+		t.Error("too many players")
 	}
-	if !foundIt {
-		t.Error("should have found player id in look result")
+	if result.PlayerIds[0] != "foo" {
+		t.Error("didnt find player")
 	}
-
 }

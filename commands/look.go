@@ -27,7 +27,7 @@ func Look(player *world.Player, args []string) interface{} {
 			Value: "You see nothing but endless void.",
 		}
 	} else {
-		playerIds := make([]string, len(playerRoom.Players))
+		playerIds := []string{}
 		for _, p := range playerRoom.Players {
 			log.Printf("found player %s", p.Id)
 			playerIds = append(playerIds, p.Id)

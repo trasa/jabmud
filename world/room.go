@@ -7,7 +7,17 @@ type Room struct {
 	Name        string
 	Description string
 	Zone        *Zone
-	Players     []*Player
+	Players     map[string]*Player
+}
+
+func NewRoom(zone *Zone, id string, name string, description string) *Room {
+	return &Room{
+		Id:          id,
+		Name:        name,
+		Description: description,
+		Zone:        zone,
+		Players:     make(map[string]*Player),
+	}
 }
 
 func (r Room) String() string {
@@ -19,6 +29,6 @@ func (r *Room) RemovePlayer(player *Player) {
 }
 
 func (r *Room) AddPlayer(player *Player) {
-	r.Players = append(r.Players, player)
+	r.Players[player.Id] = player
 	player.Room = r
 }

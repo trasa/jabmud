@@ -22,14 +22,14 @@ func init() {
 	}
 	worldInstance.Zones[sampleZone.Id] = &sampleZone
 
-	r := Room{
-		Zone:        &sampleZone,
-		Id:          startRoomKey,
-		Name:        "Central Portal",
-		Description: "It's a boring room, with boring stuff in it.",
-	}
-	sampleZone.Rooms[r.Id] = &r
-	worldInstance.StartRoom = &r
+	r := NewRoom(&sampleZone, startRoomKey, "Central Portal", "It's a boring room, with boring stuff in it.")
+	//Zone:        &sampleZone,
+	//Id:          startRoomKey,
+	//Name:        "Central Portal",
+	//Description: "It's a boring room, with boring stuff in it.",
+	//}
+	sampleZone.Rooms[r.Id] = r
+	worldInstance.StartRoom = r
 
 	log.Print("World built.")
 

@@ -1,15 +1,15 @@
 package commands
 
 import (
-	"testing"
-	"log"
 	"github.com/trasa/jabmud/world"
+	"log"
+	"testing"
 )
 
 func TestWho(t *testing.T) {
 	p := world.Player{
-		Id:"id",
-		Jid:"jid",
+		Id:  "id",
+		Jid: "jid",
 	}
 	world.AddKnownPlayer(&p)
 

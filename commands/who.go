@@ -8,7 +8,7 @@ import (
 type WhoResult struct {
 	// TODO this might have to become more sophisticated one day.
 	// just not today.
-	PlayerId []string `xml:"Player"`
+	PlayerIds []string `xml:"Players>Player"`
 }
 
 // Who else is online?

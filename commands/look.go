@@ -29,7 +29,6 @@ func Look(player *world.Player, args []string) interface{} {
 	} else {
 		playerIds := []string{}
 		for _, p := range playerRoom.Players {
-			log.Printf("found player %s", p.Id)
 			playerIds = append(playerIds, p.Id)
 		}
 		return LookResult{

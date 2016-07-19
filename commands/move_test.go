@@ -4,12 +4,17 @@ import (
 	"github.com/stretchr/testify/suite"
 	"github.com/trasa/jabmud/world"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 type MoveFullyConnectedSuite struct {
 	suite.Suite
 	center, north, south, west, east, up, down *world.Room
 	player                                     *world.Player
+}
+
+func TestMoveFullyConnectedSuite(t *testing.T) {
+	suite.Run(t, new(MoveFullyConnectedSuite))
 }
 
 func (suite *MoveFullyConnectedSuite) SetupTest() {
@@ -75,7 +80,7 @@ func (suite *MoveFullyConnectedSuite) TestMoveEastSuccess() {
 }
 
 func (suite *MoveFullyConnectedSuite) TestMoveWestSuccess() {
-	result := MoveDirection(suite.player, []string{"s"}).(MoveResult)
+	result := MoveDirection(suite.player, []string{"w"}).(MoveResult)
 	assert.True(suite.T(), result.Success)
 	assert.False(suite.T(), inRoom(suite.center, suite.player.Id))
 	assert.False(suite.T(), inRoom(suite.north, suite.player.Id))
@@ -88,7 +93,7 @@ func (suite *MoveFullyConnectedSuite) TestMoveWestSuccess() {
 
 
 func (suite *MoveFullyConnectedSuite) TestMoveUpSuccess() {
-	result := MoveDirection(suite.player, []string{"s"}).(MoveResult)
+	result := MoveDirection(suite.player, []string{"u"}).(MoveResult)
 	assert.True(suite.T(), result.Success)
 	assert.False(suite.T(), inRoom(suite.center, suite.player.Id))
 	assert.False(suite.T(), inRoom(suite.north, suite.player.Id))
@@ -101,7 +106,7 @@ func (suite *MoveFullyConnectedSuite) TestMoveUpSuccess() {
 
 
 func (suite *MoveFullyConnectedSuite) TestMoveDownSuccess() {
-	result := MoveDirection(suite.player, []string{"s"}).(MoveResult)
+	result := MoveDirection(suite.player, []string{"d"}).(MoveResult)
 	assert.True(suite.T(), result.Success)
 	assert.False(suite.T(), inRoom(suite.center, suite.player.Id))
 	assert.False(suite.T(), inRoom(suite.north, suite.player.Id))
@@ -112,6 +117,30 @@ func (suite *MoveFullyConnectedSuite) TestMoveDownSuccess() {
 	assert.True(suite.T(), inRoom(suite.down, suite.player.Id))
 }
 
+type MoveFailSuite struct {
+	suite.Suite
+	center *world.Room
+	player *world.Player
+}
+
+func TestMoveFailSuite(t *testing.T) {
+	suite.Run(t, new(MoveFailSuite))
+}
+
+func (suite *MoveFailSuite) SetupTest() {
+	zone := &world.Zone{}
+	suite.center = world.NewRoom(zone, "center", "", "")
+
+	suite.player = &world.Player{
+		Id: "foo",
+	}
+	suite.center.AddPlayer(suite.player)
+}
+
+func (suite *MoveFailSuite) TestBadDirection() {
+	result := MoveDirection(suite.player, []string{"x"}).(MoveResult)
+	assert.False(suite.T(), result.Success)
+}
 
 func inRoom(room *world.Room, id string) (exists bool) {
 	_, exists = room.Players[id]

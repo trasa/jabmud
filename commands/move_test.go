@@ -1,9 +1,9 @@
 package commands
 
 import (
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 	"github.com/trasa/jabmud/world"
-	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -40,7 +40,6 @@ func (suite *MoveFullyConnectedSuite) SetupTest() {
 	suite.center.AddPlayer(suite.player)
 }
 
-
 func (suite *MoveFullyConnectedSuite) TestMoveNorthSuccess() {
 	result := MoveDirection(suite.player, []string{"n"}).(MoveResult)
 	assert.True(suite.T(), result.Success)
@@ -53,7 +52,6 @@ func (suite *MoveFullyConnectedSuite) TestMoveNorthSuccess() {
 	assert.False(suite.T(), inRoom(suite.down, suite.player.Id))
 }
 
-
 func (suite *MoveFullyConnectedSuite) TestMoveSouthSuccess() {
 	result := MoveDirection(suite.player, []string{"s"}).(MoveResult)
 	assert.True(suite.T(), result.Success)
@@ -65,7 +63,6 @@ func (suite *MoveFullyConnectedSuite) TestMoveSouthSuccess() {
 	assert.False(suite.T(), inRoom(suite.up, suite.player.Id))
 	assert.False(suite.T(), inRoom(suite.down, suite.player.Id))
 }
-
 
 func (suite *MoveFullyConnectedSuite) TestMoveEastSuccess() {
 	result := MoveDirection(suite.player, []string{"e"}).(MoveResult)
@@ -91,7 +88,6 @@ func (suite *MoveFullyConnectedSuite) TestMoveWestSuccess() {
 	assert.False(suite.T(), inRoom(suite.down, suite.player.Id))
 }
 
-
 func (suite *MoveFullyConnectedSuite) TestMoveUpSuccess() {
 	result := MoveDirection(suite.player, []string{"u"}).(MoveResult)
 	assert.True(suite.T(), result.Success)
@@ -103,7 +99,6 @@ func (suite *MoveFullyConnectedSuite) TestMoveUpSuccess() {
 	assert.True(suite.T(), inRoom(suite.up, suite.player.Id))
 	assert.False(suite.T(), inRoom(suite.down, suite.player.Id))
 }
-
 
 func (suite *MoveFullyConnectedSuite) TestMoveDownSuccess() {
 	result := MoveDirection(suite.player, []string{"d"}).(MoveResult)

@@ -24,7 +24,7 @@ func TestSuccessPresence(t *testing.T) {
 		To:   "jabmud.localhost/someguy",
 		From: "what@somewhere",
 	}
-	response := newSuccessPresence(&presence)
+	response := NewSuccessPresence(&presence)
 	str := commands.Serialize(response)
 	expected := "<presence to=\"what@somewhere\" from=\"jabmud.localhost/someguy\"><x xmlns=\"http://jabber.org/protocol/muc\"><item affiliation=\"member\" role=\"participant\"></item><status code=\"110\"></status></x></presence>"
 	if str != expected {

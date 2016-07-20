@@ -6,6 +6,8 @@ import (
 	"log"
 )
 
+var xmppcomponent *xmpp.XMPP
+
 func main() {
 	jabberHostPtr := flag.String("jabberhost", "192.168.99.100", "ejabber host ip address")
 	jabberPortPtr := flag.String("jabberport", "5275", "ejabber host port")
@@ -15,14 +17,18 @@ func main() {
 	connectComponent(*jabberHostPtr, *jabberPortPtr)
 }
 
+func Send(message interface{}) {
+	xmppcomponent.Out <- message
+}
+
 func connectComponent(jabberHost string, jabberPort string) {
 	// connect as component
 	jid, _ := xmpp.ParseJID("jabmud.localhost")
 	stream, _ := xmpp.NewStream(jabberHost+":"+jabberPort, nil)
-	X, _ := xmpp.NewComponentXMPP(stream, jid, "secret")
-	log.Printf("created component JID %v at %v\n", jid, X)
+	xmppcomponent, _ = xmpp.NewComponentXMPP(stream, jid, "secret")
+	log.Printf("created component JID %v at %v\n", jid, xmppcomponent)
 
-	for i := range X.In {
+	for i := range xmppcomponent.In {
 		switch v := i.(type) {
 		case error:
 			log.Printf("error: %v\n", v)
@@ -30,19 +36,19 @@ func connectComponent(jabberHost string, jabberPort string) {
 		case *xmpp.Message:
 			log.Printf("msg: %s says %s\n", v.From, v.Body)
 			// for fun, send a response
-			X.Out <- xmpp.Message{Body: "hi!", To: v.From, From: v.To, Type: "chat"}
+			Send(xmpp.Message{Body: "hi!", To: v.From, From: v.To, Type: "chat"})
 
 		case *xmpp.Iq:
 			if response := HandleIq(v); response != nil {
 				log.Printf("Iq Response: %s", response)
-				X.Out <- response
+				Send(response)
 			}
 
 		case *xmpp.Presence:
 			// player name is in to:jabmud.localhost/(playername)
 			if response := HandlePresence(v); response != nil {
 				log.Printf("Presence Response: %s", response)
-				X.Out <- response
+				Send(response)
 			}
 
 		default:

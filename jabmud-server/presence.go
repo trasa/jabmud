@@ -29,7 +29,7 @@ func HandlePresence(presence *xmpp.Presence) (response interface{}) {
 		} else {
 			// success! response should reflect success case here...
 			log.Printf("Login Success for player %s", player)
-			response = newSuccessPresence(presence)
+			response = NewSuccessPresence(presence)
 		}
 	}
 	return response
@@ -50,7 +50,7 @@ type SuccessPresence struct {
 }
 
 // Create a new successful Presence response for this Presence request.
-func newSuccessPresence(presence *xmpp.Presence) SuccessPresence {
+func NewSuccessPresence(presence *xmpp.Presence) SuccessPresence {
 	return SuccessPresence{
 		Presence: xmpp.Presence{
 			Id:   presence.Id,

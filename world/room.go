@@ -34,6 +34,10 @@ func (r Room) String() string {
 
 func (r *Room) RemovePlayer(player *Player) {
 	delete(r.Players, player.Id)
+	// tell players in room that this player has left
+	//for _, p := range r.Players {
+	//	p.Tell(player has left room)
+	//}
 	player.Room = nil
 }
 
@@ -41,6 +45,10 @@ func (r *Room) AddPlayer(player *Player) {
 	if player.Room != nil {
 		player.Room.RemovePlayer(player)
 	}
+	//for _, p := range r.Players {
+	//	main.main.Send(main.NewSuccessPresence(p))
+	//	p.Tell(player has entered room)
+	//}
 	r.Players[player.Id] = player
 	player.Room = r
 }

@@ -1,4 +1,4 @@
-package main
+package jab
 
 import (
 	"github.com/emgee/go-xmpp/src/xmpp"

@@ -2,6 +2,7 @@ package world
 
 import (
 	"fmt"
+	//"github.com/trasa/jabmud/jab"
 )
 
 type Room struct {
@@ -36,7 +37,8 @@ func (r *Room) RemovePlayer(player *Player) {
 	delete(r.Players, player.Id)
 	// tell players in room that this player has left
 	//for _, p := range r.Players {
-	//	p.Tell(player has left room)
+	//	 TODO actual type
+		//jab.Send(jab.NewSuccessPresence(p))
 	//}
 	player.Room = nil
 }
@@ -46,8 +48,8 @@ func (r *Room) AddPlayer(player *Player) {
 		player.Room.RemovePlayer(player)
 	}
 	//for _, p := range r.Players {
-	//	main.main.Send(main.NewSuccessPresence(p))
-	//	p.Tell(player has entered room)
+		// TODO actual type
+		//jab.Send(jab.NewSuccessPresence(p))
 	//}
 	r.Players[player.Id] = player
 	player.Room = r

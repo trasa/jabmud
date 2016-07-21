@@ -7,11 +7,9 @@ import (
 
 var xmppcomponent *xmpp.XMPP
 
-
 func Send(message interface{}) {
 	xmppcomponent.Out <- message
 }
-
 
 func ConnectComponent(jabberHost string, jabberPort string) {
 	// connect as component

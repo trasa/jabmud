@@ -21,9 +21,9 @@ func HandlePresence(presence *xmpp.Presence) (response interface{}) {
 
 	case "":
 		// create a new player object
-		player := world.Player{Name: tojid.Resource, Jid: presence.From, Id: tojid.Resource}
+		player := world.NewPlayer(tojid.Resource, presence.From, tojid.Resource)
 		log.Printf("Attempting login for %s", player)
-		if e := world.Login(&player); e != nil {
+		if e := world.Login(player); e != nil {
 			log.Printf("Login failed for player %s", player)
 			response = newErrorPresence(presence)
 		} else {

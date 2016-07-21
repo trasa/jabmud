@@ -36,7 +36,7 @@ func (r *Room) RemovePlayer(player *Player) {
 	delete(r.Players, player.Id)
 	// tell players in room that this player has left
 	for _, p := range r.Players {
-		p.EventChannel <- "event type goes here"
+		p.OnEvent("remove payload goes here")
 	}
 	player.Room = nil
 }
@@ -46,7 +46,7 @@ func (r *Room) AddPlayer(player *Player) {
 		player.Room.RemovePlayer(player)
 	}
 	for _, p := range r.Players {
-		p.EventChannel <- "event type goes here"
+		p.OnEvent("add payload goes here")
 	}
 	r.Players[player.Id] = player
 	player.Room = r

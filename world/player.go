@@ -2,29 +2,23 @@ package world
 
 import (
 	"fmt"
-	"log"
 )
 
 type Player struct {
-	Id           string
-	Name         string
-	Jid          string
-	Room         *Room
-	EventChannel chan interface{}
+	Id            string
+	Name          string
+	Jid           string
+	Room          *Room
+	EventCallback func(*Player, interface{})
 }
 
-func NewPlayer(id string, jid string, name string) *Player {
+func NewPlayer(id string, jid string, name string, onEvent func(*Player, interface{})) *Player {
 	p := Player{
-		Name:         name,
-		Jid:          jid,
-		Id:           id,
-		EventChannel: make(chan interface{}),
+		Name:          name,
+		Jid:           jid,
+		Id:            id,
+		EventCallback: onEvent,
 	}
-	go func() {
-		log.Printf("begin recieve")
-		rec := <-p.EventChannel
-		log.Printf("event channel recieved %v", rec)
-	}()
 	return &p
 }
 
@@ -37,4 +31,10 @@ func (p *Player) FindZone() *Zone {
 		return p.Room.Zone
 	}
 	return nil
+}
+
+func (p *Player) OnEvent(payload interface{}) {
+	if p.EventCallback != nil {
+		p.EventCallback(p, payload)
+	}
 }

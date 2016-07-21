@@ -7,7 +7,7 @@ import (
 
 func TestLogin(t *testing.T) {
 	ClearKnownPlayers()
-	originalPlayer := NewPlayer("id", "Jid", "Name")
+	originalPlayer := NewPlayer("id", "Jid", "Name", nil)
 	if err := Login(originalPlayer); err != nil {
 		t.Error("Failed to login")
 	}
@@ -16,14 +16,12 @@ func TestLogin(t *testing.T) {
 	if originalPlayer != p {
 		t.Errorf("Found different player than expected: expected %s, actual %s", originalPlayer, p)
 	}
-	// send something
-	p.EventChannel <- "foo"
 }
 
 func TestGetAll(t *testing.T) {
 	ClearKnownPlayers()
-	playerA := NewPlayer("a", "a", "a")
-	playerB := NewPlayer("b", "b", "b")
+	playerA := NewPlayer("a", "a", "a", nil)
+	playerB := NewPlayer("b", "b", "b", nil)
 	if err := Login(playerA); err != nil {
 		t.Error("Failed to login A")
 	}

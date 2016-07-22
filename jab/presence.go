@@ -7,10 +7,6 @@ import (
 	"log"
 )
 
-func callbackPlaceHolder(p *world.Player, payload interface{}) {
-	log.Printf("callback from %v: %v", p, payload)
-}
-
 // Deal with an incoming Presence message, returning a presence
 // message suitable to be returned to the client.
 func HandlePresence(presence *xmpp.Presence) (response interface{}) {
@@ -25,7 +21,7 @@ func HandlePresence(presence *xmpp.Presence) (response interface{}) {
 
 	case "":
 		// create a new player object
-		player := world.NewPlayer(tojid.Resource, presence.From, tojid.Resource, callbackPlaceHolder)
+		player := world.NewPlayer(tojid.Resource, presence.From, tojid.Resource, OnPlayerEvent)
 		log.Printf("Attempting login for %s", player)
 		if e := world.Login(player); e != nil {
 			log.Printf("Login failed for player %s", player)

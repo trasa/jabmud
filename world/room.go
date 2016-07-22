@@ -36,7 +36,11 @@ func (r *Room) RemovePlayer(player *Player) {
 	delete(r.Players, player.Id)
 	// tell players in room that this player has left
 	for _, p := range r.Players {
-		p.OnEvent("remove payload goes here")
+		p.OnEvent(ExitRoomEvent{
+			PlayerId: player.Id,
+			ZoneId:   r.Zone.Id,
+			RoomId:   r.Id,
+		})
 	}
 	player.Room = nil
 }
@@ -46,8 +50,24 @@ func (r *Room) AddPlayer(player *Player) {
 		player.Room.RemovePlayer(player)
 	}
 	for _, p := range r.Players {
-		p.OnEvent("add payload goes here")
+		p.OnEvent(EnterRoomEvent{
+			PlayerId: player.Id,
+			ZoneId:   r.Zone.Id,
+			RoomId:   r.Id,
+		})
 	}
 	r.Players[player.Id] = player
 	player.Room = r
+}
+
+type ExitRoomEvent struct {
+	PlayerId string
+	ZoneId   string
+	RoomId   string
+}
+
+type EnterRoomEvent struct {
+	PlayerId string
+	ZoneId   string
+	RoomId   string
 }

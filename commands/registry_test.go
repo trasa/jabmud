@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"github.com/trasa/jabmud/serde"
 	"github.com/trasa/jabmud/world"
 	"testing"
 )
@@ -16,7 +17,7 @@ func TestCommandRun(t *testing.T) {
 func TestSerializeLookResult(t *testing.T) {
 	lookResult := LookResult{Value: "You see nothing."}
 
-	str := Serialize(lookResult)
+	str := serde.Serialize(lookResult)
 	expected := "<LookResult><Value>You see nothing.</Value></LookResult>"
 	if str != expected {
 		t.Errorf("serialize didn't get expected string\nexp=%s\nact=%s", expected, str)

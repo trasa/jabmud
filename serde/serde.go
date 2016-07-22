@@ -1,4 +1,4 @@
-package jab
+package serde
 
 import "encoding/xml"
 
@@ -10,4 +10,9 @@ func Serialize(obj interface{}) string {
 	}
 	bytes, _ := xml.Marshal(obj)
 	return string(bytes)
+}
+
+func Deserialize(rawxml string, target interface{}) interface{} {
+	xml.Unmarshal([]byte(rawxml), target)
+	return target
 }

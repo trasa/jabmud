@@ -3,6 +3,7 @@ package jab
 import (
 	"github.com/emgee/go-xmpp/src/xmpp"
 	"github.com/trasa/jabmud/commands"
+	"github.com/trasa/jabmud/serde"
 	"github.com/trasa/jabmud/world"
 	"log"
 	"strings"
@@ -28,7 +29,7 @@ func handleIqCommand(iq *xmpp.Iq) *xmpp.Iq {
 	}
 
 	// so now go do something with the command...
-	payload := commands.Serialize(commands.Run(player, cmd.Name, cmd.ArgList))
+	payload := serde.Serialize(commands.Run(player, cmd.Name, cmd.ArgList))
 	response := iq.Response("result")
 	response.Payload = payload
 	return response

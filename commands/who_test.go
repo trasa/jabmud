@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"github.com/trasa/jabmud/serde"
 	"github.com/trasa/jabmud/world"
 	"log"
 	"testing"
@@ -28,6 +29,6 @@ func TestWhoResultXml(t *testing.T) {
 		PlayerIds: []string{"a", "b", "c"},
 	}
 	log.Printf("result: %v", result)
-	str := Serialize(result)
+	str := serde.Serialize(result)
 	log.Printf("xml: %v", str)
 }

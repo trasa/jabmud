@@ -1,7 +1,6 @@
 package commands
 
 import (
-	"encoding/xml"
 	"github.com/trasa/jabmud/world"
 	"log"
 )
@@ -30,14 +29,4 @@ func Run(player *world.Player, command string, args []string) interface{} {
 		log.Printf("%s is not a known command", command)
 		return nil
 	}
-}
-
-// Serialize obj into it's xml representation as a string.
-// If obj is nil, return empty-string.
-func Serialize(obj interface{}) string {
-	if obj == nil {
-		return ""
-	}
-	bytes, _ := xml.Marshal(obj)
-	return string(bytes)
 }

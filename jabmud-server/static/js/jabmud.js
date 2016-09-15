@@ -43,7 +43,7 @@ var BOSH_SERVICE = 'http://192.168.99.100:5280/http-bind'
                     var from = msg.getAttribute('from');
                     var type = msg.getAttribute('type');
                     var bodyElements = msg.getElementsByTagName('body');
-
+// (chat from jabmud.localhost) <EnterRoomEvent><PlayerId>Other</PlayerId><ZoneId>sample</ZoneId><RoomId>start</RoomId></EnterRoomEvent>
                     var bodyStr = $('<div/>').append(bodyElements).html();
 
                     displayMessage("(" + type + " from " + from + ") " + bodyStr);
